@@ -11,7 +11,6 @@ public class normalized_histograms implements PlugInFilter {
     public void run(ImageProcessor ip) {
         int M = ip.getWidth();
         int N = ip.getHeight();
-        int[] H = ip.getHistogram();
         float[] red = new float[256];
         float[] green = new float[256];
         float[] blue = new float[256];
@@ -30,9 +29,14 @@ public class normalized_histograms implements PlugInFilter {
             green[j] = green[j - 1] + green[j];
             blue[j] = blue[j - 1] + blue[j];
         } 
+    
         for (int j = 0; j < red.length; j++) {
             red[j] = red[j] / (M * N);
+            green[j] = green[j] / (M * N);
+            blue[j] = blue[j] / (M * N);
             IJ.log(Float.toString(red[j]));
+            IJ.log(Float.toString(green[j]));
+            IJ.log(Float.toString(blue[j]));
         } 
     }
 }
